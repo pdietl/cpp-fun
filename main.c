@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <metalang99.h>
 
+#define ADD_COMMA(x) x,
+
 #define CASE_ENUM_VARIANT(c) case c: return #c;
 
 #define ENUM_CONSTANT_IMPL(prefix, name) v(k##prefix##_##name)
@@ -8,8 +10,9 @@
 
 #define ENUM_PRINTABLE(name, ...) \
     typedef enum { \
-        ML99_EVAL(ML99_variadicsForEach(ML99_appl(v(ENUM_CONSTANT), v(name)), \
-           v(__VA_ARGS__))) \
+        ML99_EVAL(ML99_variadicsForEach( \
+            ML99_compose(ML99_reify(v(ADD_COMMA)), ML99_appl(v(ENUM_CONSTANT), v(name))), \
+            v(__VA_ARGS__))) \
     } name##_t; \
     \
     const char *name##ToString(name##_t val) \
