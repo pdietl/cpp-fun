@@ -20,10 +20,7 @@
         switch (val) \
         { \
         ML99_EVAL(ML99_variadicsForEach( \
-            ML99_compose( \
-                ML99_reify(v(CASE_ENUM_VARIANT)), \
-                ML99_appl(v(ENUM_CONSTANT), v(name)) \
-            ), \
+            ML99_compose(ML99_reify(v(CASE_ENUM_VARIANT)), ML99_appl(v(ENUM_CONSTANT), v(name))), \
             v(__VA_ARGS__)) \
         ) \
             default: return "Unknown"; \
